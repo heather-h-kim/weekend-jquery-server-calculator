@@ -16,3 +16,9 @@ app.listen(port, () => {
     console.log('listening on port', port);  
 });
 
+let arr = [];
+
+app.get('/numbers', function(req, res){
+    res.send(arr);
+    console.log('in /numbers GET', arr);
+})
