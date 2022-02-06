@@ -18,7 +18,31 @@ app.listen(port, () => {
 
 let arr = [];
 
+
 app.get('/numbers', function(req, res){
-    res.send(arr);
-    console.log('in /numbers GET', arr);
+    console.log('Request at /numbers was made', req.body);
+
+    let firstOperand = arr[0].firstOperand;
+    console.log('first operand is', firstOperand);
+    
+    let secondOperand = arr[0].secondOperand;
+    console.log('second operand is', secondOperand);
+    
+    let operator = arr[0].operator;
+    console.log('operator is', operator);
+
+    let result = eval(firstOperand + operator + secondOperand);
+    console.log('result is', result);
+
+    res.send(result);
+    res.sendStatus(201);   
+   
 })
+
+
+app.post('/numbers', function(req,res){
+    console.log('in /numbers POST', req.body);
+    arr.push(req.body);
+    res.send(req.body);
+});
+
