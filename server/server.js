@@ -32,10 +32,12 @@ app.get('/numbers', function(req, res){
     console.log('operator is', operator);
 
     let result = eval(firstOperand + operator + secondOperand);
-    console.log('result is', result);
 
-    res.send(result);
-    res.sendStatus(201);   
+    arr[0].result = result;
+
+   console.log('arr is now ', arr);
+    
+   res.send(arr);
    
 })
 
@@ -46,3 +48,9 @@ app.post('/numbers', function(req,res){
     res.send(req.body);
 });
 
+
+app.get('/reset', function(req, res){
+    console.log('Request at /reset was made');
+    arr = [];
+    res.send(arr);
+})
