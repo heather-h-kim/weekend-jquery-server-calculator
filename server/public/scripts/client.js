@@ -12,24 +12,28 @@ function readyNow(){
     // $('#clear').on('click', resetCalculator)
 }
 
+//create a data object to send to the server
 const dataToSend = {
     firstOperand: 0,
     secondOperand: 0,
     operator: '+'
 }
 
+//grab operator values from DOM
 function getOperator(){
     console.log('in getOperator');
     dataToSend.operator = $(this).data().operator;
     console.log(dataToSend);
 }
 
+//grab operand values from DOM
 function getOperands(){
     dataToSend.firstOperand = $('#first-operand').val();
     dataToSend.secondOperand = $('#second-operand').val();
     console.log(dataToSend);
 }
 
+//send data to the server
 function sendData(){
     $.ajax({
         method: 'POST',
@@ -37,12 +41,13 @@ function sendData(){
         data: dataToSend
     }).then(function (response){
         console.log('success', response);
-        calculateNumbers();   
+        calculateNumbers();  //when the sever sends back data, send calculation request back to the server 
     }).catch(function(err){
         alert('request failed');
     })
 }
 
+//send calculation request to the server
 function calculateNumbers(){
     $.ajax({
         method: 'GET',
@@ -51,15 +56,13 @@ function calculateNumbers(){
         console.log('success!', response);
         $('#result').empty();
         $('#result').append(response[response.length-1].result);
-        renderToDom(response);
-
-        // $('#list').empty();
-        // $('#list').append(`<li>${response.firstOperand} ${response.operator} ${response.secondOperand} = ${response.result}</li>`)
+        renderToDom(response); //render the received data to DOM
     }).catch(function(response){
         console.log('UGHHH');       
     })
 }
 
+//append history of the calculations
 function renderToDom(arr){
     $('#list').empty();
     for(let element of arr){
@@ -71,18 +74,7 @@ function renderToDom(arr){
     }
 }
 
-// function resetCalculator(){
-//     $.ajax({
-//         method: 'GET',
-//         url:'/reset'
-//     }).then(function(response){
-//         console.log('reset success!');
-//         clearForm();
-//     }).catch(function(response){
-//         console.log('UCHHHH'); 
-//     })
-// }
-
+//clear form when C button is clicked
 function clearForm(){
     $('#first-operand').val('');
     $('#second-operand').val('');

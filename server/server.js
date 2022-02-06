@@ -16,9 +16,10 @@ app.listen(port, () => {
     console.log('listening on port', port);  
 });
 
+//create an empty array to store data 
 let arr = [];
 
-
+//per the request from the client, perform arithmetic operation and send the results back to the client
 app.get('/numbers', function(req, res){
     console.log('Request at /numbers was made', req.body);
     let calculation = 0;
@@ -31,25 +32,21 @@ app.get('/numbers', function(req, res){
         console.log('operator is', operator);
         if(operator === '+'){
             calculation = firstOperand + secondOperand;
-            result = calculation.toFixed(2)
         }else if(operator === '-'){
             calculation = firstOperand - secondOperand;
-            result = calculation.toFixed(2)
         }else if(operator === '*'){
             calculation = firstOperand * secondOperand;
-            result = calculation.toFixed(2)
         }else if(operator === '/'){
             calculation = firstOperand / secondOperand;
-            result = calculation.toFixed(2)
         }
-        number.result = result;
+        number.result = calculation;
     }
    console.log('arr is now ', arr);  
    res.send(arr);
 })
 
 
-
+//push the data received from the client to the array
 app.post('/numbers', function(req,res){
     console.log('in /numbers POST', req.body);
     arr.push(req.body);
@@ -57,8 +54,3 @@ app.post('/numbers', function(req,res){
 });
 
 
-// app.get('/reset', function(req, res){
-//     console.log('Request at /reset was made');
-//     arr = [];
-//     res.send(arr);
-// })
