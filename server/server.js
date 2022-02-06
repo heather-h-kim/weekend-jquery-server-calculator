@@ -21,25 +21,33 @@ let arr = [];
 
 app.get('/numbers', function(req, res){
     console.log('Request at /numbers was made', req.body);
-
-    let firstOperand = arr[0].firstOperand;
-    console.log('first operand is', firstOperand);
-    
-    let secondOperand = arr[0].secondOperand;
-    console.log('second operand is', secondOperand);
-    
-    let operator = arr[0].operator;
-    console.log('operator is', operator);
-
-    let result = eval(firstOperand + operator + secondOperand);
-
-    arr[0].result = result;
-
-   console.log('arr is now ', arr);
-    
+    let calculation = 0;
+    for(let number of arr){
+        let firstOperand = Number(number.firstOperand);
+        console.log('first operand is', firstOperand);
+        let secondOperand = Number(number.secondOperand);
+        console.log('second operand is', secondOperand);
+        let operator = number.operator;
+        console.log('operator is', operator);
+        if(operator === '+'){
+            calculation = firstOperand + secondOperand;
+            result = calculation.toFixed(2)
+        }else if(operator === '-'){
+            calculation = firstOperand - secondOperand;
+            result = calculation.toFixed(2)
+        }else if(operator === '*'){
+            calculation = firstOperand * secondOperand;
+            result = calculation.toFixed(2)
+        }else if(operator === '/'){
+            calculation = firstOperand / secondOperand;
+            result = calculation.toFixed(2)
+        }
+        number.result = result;
+    }
+   console.log('arr is now ', arr);  
    res.send(arr);
-   
 })
+
 
 
 app.post('/numbers', function(req,res){
@@ -49,8 +57,8 @@ app.post('/numbers', function(req,res){
 });
 
 
-app.get('/reset', function(req, res){
-    console.log('Request at /reset was made');
-    arr = [];
-    res.send(arr);
-})
+// app.get('/reset', function(req, res){
+//     console.log('Request at /reset was made');
+//     arr = [];
+//     res.send(arr);
+// })

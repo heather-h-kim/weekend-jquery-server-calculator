@@ -8,7 +8,8 @@ function readyNow(){
     $('#division').on('click', getOperator);
     $('#submit').on('click', getOperands);
     $('#submit').on('click', sendData);
-    $('#clear').on('click', resetCalculator)
+    $('#clear').on('click', clearForm);
+    // $('#clear').on('click', resetCalculator)
 }
 
 const dataToSend = {
@@ -49,26 +50,40 @@ function calculateNumbers(){
     }).then(function (response){
         console.log('success!', response);
         $('#result').empty();
-        $('#result').append(`<p>The result is ${response[0].result}</p>`);
+        $('#result').append(response[response.length-1].result);
+        renderToDom(response);
+
+        // $('#list').empty();
+        // $('#list').append(`<li>${response.firstOperand} ${response.operator} ${response.secondOperand} = ${response.result}</li>`)
     }).catch(function(response){
         console.log('UGHHH');       
     })
 }
 
-function resetCalculator(){
-    $.ajax({
-        method: 'GET',
-        url:'/reset'
-    }).then(function(response){
-        console.log('reset success!');
-        clearForm();
-    }).catch(function(response){
-        console.log('UCHHHH'); 
-    })
+function renderToDom(arr){
+    $('#list').empty();
+    for(let element of arr){
+        let firstOperand = element.firstOperand;
+        let secondOperand = element.secondOperand;
+        let operator = element.operator;
+        let result = element.result
+        $('#list').append(`<li>${firstOperand} ${operator} ${secondOperand} = ${result}</li>`)
+    }
 }
+
+// function resetCalculator(){
+//     $.ajax({
+//         method: 'GET',
+//         url:'/reset'
+//     }).then(function(response){
+//         console.log('reset success!');
+//         clearForm();
+//     }).catch(function(response){
+//         console.log('UCHHHH'); 
+//     })
+// }
 
 function clearForm(){
     $('#first-operand').val('');
     $('#second-operand').val('');
-    $('#result').empty();
 }
