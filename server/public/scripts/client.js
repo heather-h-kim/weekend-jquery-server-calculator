@@ -2,14 +2,9 @@ $(document).ready(readyNow);
 
 function readyNow(){
     console.log('Ready!');
-    $('#addition').on('click', getOperator);
-    $('#subtraction').on('click', getOperator);
-    $('#multiplication').on('click', getOperator);
-    $('#division').on('click', getOperator);
-    $('#submit').on('click', getOperands);
-    $('#submit').on('click', sendData);
+    $('.operator').on('click',getOperator);
+    $('#submit').on('click', handleSubmit);
     $('#clear').on('click', clearForm);
-    // $('#clear').on('click', resetCalculator)
 }
 
 //create a data object to send to the server
@@ -18,6 +13,7 @@ const dataToSend = {
     secondOperand: 0,
     operator: '+'
 }
+
 
 //grab operator values from DOM
 function getOperator(){
@@ -34,7 +30,8 @@ function getOperands(){
 }
 
 //send data to the server
-function sendData(){
+function handleSubmit(){
+    getOperands()
     $.ajax({
         method: 'POST',
         url: '/numbers',
