@@ -5,7 +5,7 @@ const { send } = require('process');
 
 const app = express();
 
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -13,7 +13,7 @@ app.use(express.static('server/public'));
 
 
 app.listen(port, () => {
-    console.log('listening on port', port);
+    console.log('listening on port', PORT);
 });
 
 //create an empty array to store data 

@@ -76,3 +76,14 @@ function clearForm(){
     $('#first-operand').val('');
     $('#second-operand').val('');
 }
+
+
+// function formatNumberAsMoney(moneyAsNumber) {
+//     const formatter = new Intl.NumberFormat('en-US', {
+//       style: 'currency',
+//       currency: 'USD',
+//       minimumFractionDigits: 2
+//     })
+//     let moneyAsCurrencyString = formatter.format(moneyAsNumber);
+//     return moneyAsCurrencyString;
+//   }
